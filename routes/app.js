@@ -3,7 +3,7 @@ var router = express.Router();
 var User = require('../models/user');
 
 router.get('/', function(req, res, next) {
-    res.render('node');
+    res.render('index');
 });
 
 router.post('/', function(req, res, next) {
