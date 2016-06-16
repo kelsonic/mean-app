@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var User = require('./models/user');
+var User = require('../models/user');
 
 router.get('/', function(req, res, next) {
     res.render('node');
@@ -12,7 +12,7 @@ router.post('/', function(req, res, next) {
       firstName: "James",
       lastName: "Mash",
       password: "password123",
-      email: "me@example.com"
+      email: email
     });
     user.save();
     res.redirect('/');
