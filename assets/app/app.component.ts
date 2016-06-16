@@ -3,6 +3,11 @@ import {Component} from 'angular2/core';
     selector: 'my-app',
     template: `
         <div class="row">
+            <section class="col-md-8 col-md-offset-2">
+                <input type="text" [(ngModel)]="message.content">
+            </section>
+        </div>
+        <div class="row">
             <section class="col-md-8 col-md-offset-2">  
                 <article class="panel panel-default">
                     <div class="panel-body">
