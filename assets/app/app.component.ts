@@ -1,4 +1,5 @@
 import {Component} from 'angular2/core';
+import {MessageComponent} from './messages/message.component';
 @Component({
     selector: 'my-app',
     template: `
@@ -12,7 +13,8 @@ import {Component} from 'angular2/core';
                 <my-message></my-message>
             </section>
         </div>
-    `
+    `,
+    directives: [MessageComponent]
 })
 export class AppComponent {
     message = {
