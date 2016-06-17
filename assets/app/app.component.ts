@@ -4,10 +4,10 @@ import {MessageInputComponent} from './messages/message-input.component';
 @Component({
     selector: 'my-app',
     template: `
-        <div class="row">
+        <div class="row spacing">
             <my-message-input></my-message-input>
         </div>
-        <div class="row">
+        <div class="row spacing">
             <my-message-list></my-message-list>
         </div>
     `,
