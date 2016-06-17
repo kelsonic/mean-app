@@ -8,14 +8,6 @@ import {FormBuilder, ControlGroup, Validators, Control} from 'angular2/common';
         <section class="col-md-8 col-md-offset-2">
             <form [ngFormModel]="myForm" (ngSubmit)="onSubmit()">
                 <div class="form-group">
-                    <label for="firstName">First Name</label>
-                    <input [ngFormControl]="myForm.find('firstName')" type="text" id="firstName" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="lastName">Last Name</label>
-                    <input [ngFormControl]="myForm.find('lastName')" type="text" id="lastName" class="form-control">
-                </div>
-                <div class="form-group">
                     <label for="email">Email</label>
                     <input [ngFormControl]="myForm.find('email')" type="email" id="email" class="form-control">
                 </div>
@@ -41,8 +33,6 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
         this.myForm = this._fb.group({
-            firstName: ['', Validators.required],
-            lastName: ['', Validators.required],
             email: ['', Validators.compose([
                 Validators.required,
                 this.isEmail
