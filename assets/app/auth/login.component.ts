@@ -1,5 +1,5 @@
 import {Component, OnInit} from 'angular2/core';
-import {FormBuilder, ControlGroup, Validators} from 'angular2/common';
+import {FormBuilder, ControlGroup, Validators, Control} from 'angular2/common';
 
 // I used a data-driven approach as opposed to template-driven
 @Component({
@@ -43,8 +43,18 @@ export class LoginComponent implements OnInit {
         this.myForm = this._fb.group({
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
-            email: ['', Validators.required],
+            email: ['', Validators.compose([
+                Validators.required,
+                this.isEmail
+            ])],
             password: ['', Validators.required]
         });
+    }
+
+    // Only returns if validation fails
+    private isEmail(control: Control): {[s: string]: boolean} {
+        if (!control.value.match("[a-z0-9!#$%&'*+/=?^_'{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_'{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")) {
+            return {invalidMail: true};
+        }
     }
 }
