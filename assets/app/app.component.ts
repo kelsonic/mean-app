@@ -17,7 +17,7 @@ import {HeaderComponent} from './header.component';
 
 @RouteConfig([
     {path: '/', name: 'Messages', component: MessagesComponent, useAsDefault: true},
-    {path: '/auth', name: 'Auth', component: AuthenticationComponent}
+    {path: '/auth/...', name: 'Auth', component: AuthenticationComponent}
 ])
 
 export class AppComponent {
