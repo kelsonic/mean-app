@@ -6,16 +6,4 @@ router.get('/', function(req, res, next) {
     res.render('index');
 });
 
-router.post('/', function(req, res, next) {
-    var email = req.body.email;
-    var user = new User({
-      firstName: "James",
-      lastName: "Mash",
-      password: "password123",
-      email: email
-    });
-    user.save();
-    res.redirect('/');
-});
-
 module.exports = router;
