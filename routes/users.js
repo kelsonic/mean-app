@@ -50,7 +50,8 @@ router.post('/login', function(req, res, next) {
     var token = jwt.sign({user: doc}, 'jquerty!@#$', {expiresIn: 3600});
     res.status(200).json({
       message: 'Success',
-      obj: token
+      token: token,
+      userId: doc._id
     });
   });
 });
