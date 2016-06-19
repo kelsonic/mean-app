@@ -14,8 +14,9 @@ export class MessageService {
     addMessage(message: Message) {
         const body = JSON.stringify(message);
         const headers = new Headers({'Content-Type': 'application/json'});
+        const token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
         // Return an observable
-        return this._http.post('http://localhost:3000/message', body, {headers: headers})
+        return this._http.post('http://localhost:3000/message' + token, body, {headers: headers})
             .map(response => {
                 const data = response.json().obj;
                 let message = new Message(data.content, data._id, 'Dummy', null);
