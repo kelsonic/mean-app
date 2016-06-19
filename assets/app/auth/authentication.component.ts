@@ -13,7 +13,7 @@ import {AuthService} from './auth.service';
                 <ul class="nav nav-tabs">
                     <li><a [routerLink]="['Login']" *ngIf="!isLoggedIn()">Login</a></li>
                     <li><a [routerLink]="['Logout']" *ngIf="isLoggedIn()">Logout</a></li>
-                    <li><a [routerLink]="['Signup']" *ngIf="!isLoggedIn()">Signup</a></li>
+                    <li><a [routerLink]="['Signup']">Signup</a></li>
                 </ul>
             </nav>
         </header>
