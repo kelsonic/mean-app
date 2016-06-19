@@ -2,6 +2,7 @@ import {Component, OnInit} from 'angular2/core';
 import {FormBuilder, ControlGroup, Validators, Control} from 'angular2/common';
 import {User} from './user';
 import {AuthService} from './auth.service';
+import {ErrorService} from '../errors/error.service';
 
 // I used a data-driven approach as opposed to template-driven
 @Component({
@@ -35,14 +36,14 @@ export class SignupComponent implements OnInit {
 
     myForm: ControlGroup;
 
-    constructor(private _fb:FormBuilder, private _authService: AuthService) {}
+    constructor(private _fb:FormBuilder, private _authService: AuthService, private _errorService: ErrorService) {}
 
     onSubmit() {
         const user = new User(this.myForm.value.email, this.myForm.value.password, this.myForm.value.firstName, this.myForm.value.lastName);
         this._authService.signup(user)
             .subscribe(
                 data => console.log(data),
-                error => console.error(error)
+                error => this._errorService.handleError(error)
             )
     }
 
