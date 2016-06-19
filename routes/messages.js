@@ -25,7 +25,7 @@ router.get('/', function(req, res, next) {
 router.use('/', function(req, res, next) {
   jwt.verify(req.query.token, 'jquerty!@#$', function(err, decodedToken) {
     if (err) {
-      return res.status(404).json({
+      return res.status(401).json({
         title: 'Authentication failed',
         error: err
       });
@@ -70,6 +70,9 @@ router.post('/', function(req, res, next) {
 });
 
 router.patch('/:id', function(req, res, next) {
+  
+  var decoded = jwt.decode(req.query.token);
+
   Message.findById(req.params.id, function(err, doc) {
     if (err) {
       return res.status(404).json({
@@ -82,6 +85,12 @@ router.patch('/:id', function(req, res, next) {
         title: 'No message found',
         error: {message: 'Message not found'}
       });
+    }
+    if (doc.user != decoded.user._id) {
+      return res.status(401).json({
+        title: 'Not authorized',
+        error: {message: 'Message created by other user'}
+      })
     }
     doc.content = req.body.content;
     doc.save(function(err, result) {
@@ -101,6 +110,9 @@ router.patch('/:id', function(req, res, next) {
 });
 
 router.delete('/:id', function(req, res, next) {
+  
+  var decoded = jwt.decode(req.query.token);
+
   Message.findById(req.params.id, function(err, doc) {
     if (err) {
       return res.status(404).json({
@@ -113,6 +125,12 @@ router.delete('/:id', function(req, res, next) {
         title: 'No message found',
         error: {message: 'Message not found'}
       });
+    }
+    if (doc.user != decoded.user._id) {
+      return res.status(401).json({
+        title: 'Not authorized',
+        error: {message: 'Message created by other user'}
+      })
     }
     doc.remove(function(err, result) {
       if (err) {
