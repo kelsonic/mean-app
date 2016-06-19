@@ -17,4 +17,12 @@ export class AuthService {
             .catch(error => Observable.throw(error.json()));
     }
 
+    login(user: User) {
+        const body = JSON.stringify(user);
+        const headers = new Headers({'Content-Type': 'application/json'});
+        return this._http.post('http://localhost:3000/user/login', body, {headers: headers})
+            .map(response => response.json())
+            .catch(error => Observable.throw(error.json()));
+    }
+
 }
