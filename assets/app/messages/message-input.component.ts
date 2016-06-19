@@ -9,7 +9,7 @@ import {MessageService} from './message.service';
             <form (ngSubmit)="onSubmit(f.value)" #f="ngForm">
                 <div class="form-group">
                     <label for="content">Content</label>
-                    <input ngControl="content" type="text" class="form-control" id="content" #input [value]="message?.content">
+                    <input ngControl="content" type="text" class="form-control" id="content" #input [ngModel]="message?.content">
                 </div>
                 <button type="submit" class="btn btn-primary">{{ !message ? 'Send Message' : 'Update Message' }}</button>
                 <button type="button" (click)="onCancel()" class="btn btn-danger" *ngIf="message">Stop Editing</button>
