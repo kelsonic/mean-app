@@ -3,6 +3,7 @@ import {FormBuilder, ControlGroup, Validators, Control} from 'angular2/common';
 import {User} from './user';
 import {Router} from 'angular2/router';
 import {AuthService} from './auth.service';
+import {ErrorService} from '../errors/error.service';
 
 // I used a data-driven approach as opposed to template-driven
 @Component({
@@ -28,7 +29,7 @@ export class LoginComponent implements OnInit {
 
     myForm: ControlGroup;
 
-    constructor(private _fb:FormBuilder, private _authService: AuthService, private _router: Router) {}
+    constructor(private _fb:FormBuilder, private _authService: AuthService, private _router: Router, private _errorService: ErrorService) {}
 
     onSubmit() {
         const user = new User(this.myForm.value.email, this.myForm.value.password);
@@ -39,7 +40,7 @@ export class LoginComponent implements OnInit {
                         localStorage.setItem('userId', data.userId);
                         this._router.navigateByUrl('/');
                     },
-                    error => console.error(error)
+                    error => this._errorService.handleError(error)
                 )
     }
 
