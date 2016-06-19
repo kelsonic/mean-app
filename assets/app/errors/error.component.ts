@@ -32,7 +32,8 @@ import {ErrorService} from "./error.service";
             width: 100%;
             height: 100vh;
         }
-    `]
+    `],
+    providers: [Error]
 })
 export class ErrorComponent implements OnInit {
     errorDisplay = 'none';
@@ -46,10 +47,10 @@ export class ErrorComponent implements OnInit {
 
     ngOnInit() {
         this._errorService.errorOccurred.subscribe(
-          errorData => {
-              this.errorData = errorData;
-              this.errorDisplay = 'block';
-          }
+            errorData => {
+                this.errorData = errorData;
+                this.errorDisplay = 'block';
+            }
         );
     }
 }
