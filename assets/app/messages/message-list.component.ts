@@ -23,6 +23,8 @@ export class MessageListComponent implements OnInit {
         this._messageService.getMessages()
             .subscribe(
                 messages => {
+                    // both are pointing to the same list, no duplicates
+                    // this is why we get instant updating
                     this.messages = messages;
                     this._messageService.messages = messages;
                 }
