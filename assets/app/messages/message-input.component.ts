@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component, OnInit} from 'angular2/core';
 import {Message} from './message';
 import {MessageService} from './message.service';
 
@@ -9,27 +9,49 @@ import {MessageService} from './message.service';
             <form (ngSubmit)="onSubmit(f.value)" #f="ngForm">
                 <div class="form-group">
                     <label for="content">Content</label>
-                    <input ngControl="content" type="text" class="form-control" id="content" #input>
+                    <input ngControl="content" type="text" class="form-control" id="content" #input [value]="message?.content">
                 </div>
-                <button type="submit" class="btn btn-primary">Send Message</button>
+                <button type="submit" class="btn btn-primary">{{ !message ? 'Send Message' : 'Update Message' }}</button>
+                <button type="button" (click)="onCancel()" class="btn btn-danger" *ngIf="message">Stop Editing</button>
             </form>
         </section>
     `
 })
 
-export class MessageInputComponent {
+export class MessageInputComponent implements OnInit {
+
+    message: Message = null;
 
     constructor(private _messageService: MessageService) {}
 
     onSubmit(form:any) {
-        const message: Message = new Message(form.content, null, 'Dummy');
-        this._messageService.addMessage(message)
-            .subscribe(
-                data => {
-                    console.log(data),
-                    this._messageService.messages.push(data);
-                },
-                error => console.log(error)
-            );
+        if (this.message) {
+            // Edit
+            this.message.content = form.content;
+            this.message = null;
+        } else {
+            // New Message
+            const message: Message = new Message(form.content, null, 'Dummy');
+            this._messageService.addMessage(message)
+                .subscribe(
+                    data => {
+                        console.log(data),
+                        this._messageService.messages.push(data);
+                    },
+                    error => console.log(error)
+                );
+        }
+    }
+
+    onCancel() {
+        this.message = null;
+    }
+
+    ngOnInit() {
+        this._messageService.messageIsEdit.subscribe(
+            message => {
+                this.message = message;
+            }
+        );
     }
 }
