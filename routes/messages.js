@@ -31,7 +31,7 @@ router.post('/', function(req, res, next) {
         error: err
       });
     }
-    res.status(201).json({
+    res.status(200).json({
       message: 'Saved message',
       obj: result
     });
